@@ -27,10 +27,9 @@ const CourseForm=({
         onChange={onChange}
         error={errors.title}
         />
-         {console.log('author',authors)}
         <SelectInput
         name="authorid"
-        label="author"
+        label="Author"
         value={course.authorid}
         defaultOption="Select Author"
         options={authors.map(author=>({

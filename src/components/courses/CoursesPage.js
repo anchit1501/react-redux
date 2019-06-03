@@ -34,7 +34,7 @@ class CoursesPage extends React.Component{
             <button style={{marginBottom:20}}
             className="btn btn-primary add-course"
             label="Add Course"
-            onClick={()=>this.setState({redirectToAddCoursePage:true})}/>
+            onClick={()=>this.setState({redirectToAddCoursePage:true})}>Add</button>
             <CourseList courses={this.props.courses}/>
         </>
             )

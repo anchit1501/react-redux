@@ -5,8 +5,8 @@ export default function courseReducer(state=initialState.courses,action){
         case types.CREATE_COURSE_SUCCESS:
         return [...state,{...action.courses}];
         case types.UPDATE_COURSE_SUCCESS:
-        return state.map(course=>
-            course.id===action.course.id?action.course:course
+        return state.map(courses=>
+            courses.id===action.courses.id?action.courses:courses
             );
         case types.LOAD_COURSES_SUCCESS:
         return action.courses;
