@@ -7,6 +7,7 @@ import {bindActionCreators} from 'redux';
 import CourseList from './CourseList';
 import Spinner from '../common/Spinner';
 import {Redirect} from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 class CoursesPage extends React.Component{
     state={
@@ -27,6 +28,15 @@ class CoursesPage extends React.Component{
     }
     }
 
+    handleDeleteCourse= async course=>{
+        toast.success("Course Deleted");
+        try{
+            await this.props.actions.deleteCourse(course)
+        }catch(error){
+            toast.error("Delete Failed." + error.message, {autoClose: false});
+    }
+}
+
     render(props){
         return(
         <>
@@ -40,7 +50,7 @@ class CoursesPage extends React.Component{
             className="btn btn-primary add-course"
             label="Add Course"
             onClick={()=>this.setState({redirectToAddCoursePage:true})}>Add</button>
-            <CourseList courses={this.props.courses}/>
+            <CourseList courses={this.props.courses} onDeleteClick={this.handleDeleteCourse}/>
             </>)}
         </>
             )
@@ -71,7 +81,8 @@ function mapDispatchToProps(dispatch){
     return {
 actions: {
     loadCourses: bindActionCreators(courseActions.loadCourses,dispatch),
-    loadAuthors: bindActionCreators(authorActions.loadAuthors,dispatch)
+    loadAuthors: bindActionCreators(authorActions.loadAuthors,dispatch),
+    deleteCourse: bindActionCreators(courseActions.deleteCourse,dispatch)
 }
 
 };
