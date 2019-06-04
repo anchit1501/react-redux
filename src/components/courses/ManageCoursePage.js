@@ -47,13 +47,29 @@ function ManageCoursePage({courses,authors,loadAuthors,loadCourses,saveCourse,hi
       }));
   }
 
+  function formIsValid(){
+      const {title,author,category}=course;
+      const errors={};
+
+      if(!title) errors.title = "Title is required";
+      if(!author) errors.author = "Author is required";
+      if(!category) errors.category = "Category is required";
+      setErrors(errors);
+
+      return Object.keys(errors).length===0;
+  }
+
   function handleSave(event){
     event.preventDefault();
+    if(!formIsValid()) return;
     setSaving(true)
     saveCourse(course)
     .then(()=>{
         toast.success("Couse Saved")
         history.push("/courses");
+    }).catch(error=>{
+        setSaving(false);
+        setErrors({onSave: error.message});
     });
 }
         return authors.length === 0 || courses.length === 0?(
